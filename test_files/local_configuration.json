@@ -1,10 +1,10 @@
 {
-  "connection_uri": "https://l0mvy6h3uaxh09fl-gh5viuniap1f9bat-app.qovery.io",
+  "connection_uri": "https://app-id-environement-id-app.qovery.io",
   "created_at": "2019-12-16T17:01:07Z",
   "databases": [
     {
       "application": {
-        "id": "l0mvy6h3uaxh09fl",
+        "id": "app-id",
         "object_type": "Application",
         "public_port": 443
       },
@@ -12,11 +12,11 @@
       "created_at": "2019-12-17T09:43:00Z",
       "disk_size_in_mb": 1024,
       "environment": {
-        "id": "gh5viuniap1f9bat",
+        "id": "environement-id",
         "object_type": "Environment"
       },
-      "fqdn": "gh5viuniap1f9bat-l0mvy6h3uaxh09fl-ma9tdpbxb5bnt9rk.totoblabla.eu-west-1.rds.amazonaws.com",
-      "id": "ma9tdpbxb5bnt9rk",
+      "fqdn": "environement-id-app-id-database-id.tablename.eu-west-1.rds.amazonaws.com",
+      "id": "database-id",
       "name": "my-pql",
       "object_type": "Service",
       "password": "blablapwd",
@@ -28,11 +28,11 @@
   ],
   "dockerfile_content": "# Build your application with this image called \"build\"\nFROM adoptopenjdk/openjdk8:alpine AS build\n\n# Add the required packages\nRUN apk update && apk upgrade && apk add bash\n\n# Add your specifc dependencies\nRUN cd /usr/local/bin && \\\n    wget https://services.gradle.org/distributions/gradle-5.6-all.zip && \\\n    /usr/bin/unzip gradle-5.6-all.zip && \\\n    ln -s /usr/local/bin/gradle-5.6/bin/gradle /usr/bin/gradle\n\n# Copy your code in the build container and move into it\nRUN mkdir -p /app\nCOPY . /app\nWORKDIR /app\n\n# Build your application\nRUN gradle build -x test\n\n# The container that will run\nFROM adoptopenjdk/openjdk8:alpine-slim\n\nEXPOSE 8080\n\n# Get the build artifact (can be a folder)\nCOPY --from=build /app/build/libs/simple-example-1.0.jar /app.jar\n\n# Set specific environment variables\nENV JAVA_OPTS=\"\"\n# Command to run your application\nCMD exec java $JAVA_OPTS -jar /app.jar\n",
   "environment": {
-    "id": "gh5viuniap1f9bat",
+    "id": "environement-id",
     "object_type": "Environment"
   },
-  "fqdn": "l0mvy6h3uaxh09fl-gh5viuniap1f9bat-app.qovery.io",
-  "id": "l0mvy6h3uaxh09fl",
+  "fqdn": "app-id-environement-id-app.qovery.io",
+  "id": "app-id",
   "name": "simple-example",
   "object_type": "Application",
   "private_port": 8080,
